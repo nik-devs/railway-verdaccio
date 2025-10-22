@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  verdaccio:
+    build: .
+    container_name: verdaccio
+    ports:
+      - "4873:4873"
+    volumes:
+      - verdaccio-storage:/verdaccio/storage
+      - verdaccio-plugins:/verdaccio/plugins
+      - ./config.yaml:/verdaccio/conf/config.yaml:ro
+    environment:
+      - VERDACCIO_PORT=4873
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4873"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  verdaccio-storage:
+    driver: local
+  verdaccio-plugins:
+    driver: local

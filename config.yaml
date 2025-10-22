@@ -1,0 +1,72 @@
+# Verdaccio Configuration
+
+# Путь к хранилищу пакетов
+storage: /verdaccio/storage
+
+# Путь к плагинам
+plugins: /verdaccio/plugins
+
+# Веб-интерфейс
+web:
+  title: Verdaccio Registry
+  # logo: http://somedomain/somelogo.png
+  # primary_color: "#4b5e40"
+  # gravatar: true | false
+  # scope: "@scope"
+  # sort_packages: asc | desc
+  # darkMode: true | false
+  # favicon: http://somedomain/favicon.ico | /path/favicon.ico
+
+# Аутентификация
+auth:
+  htpasswd:
+    file: /verdaccio/storage/htpasswd
+    # Максимальное количество пользователей, по умолчанию 1000
+    max_users: 1000
+    # По умолчанию true, если false, то пользователи не могут регистрироваться
+    # register: true
+
+# Uplinks - внешние реестры
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+
+# Пакеты и их политики доступа
+packages:
+  '@*/*':
+    # scoped packages
+    access: $authenticated
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: npmjs
+
+  '**':
+    # allow all users (including non-authenticated users) to read and
+    # all authenticated users to publish
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+
+    # если пакет не найден локально, проксировать запрос к 'npmjs' uplink
+    proxy: npmjs
+
+# Логирование
+logs: { type: stdout, format: pretty, level: http }
+
+# Экспериментальные функции
+#experiments:
+#  # support for npm token command
+#  token: false
+#  # enable tarball URL redirect for uplinks
+#  tarball_url_redirect: false
+#  # enable legacy search API
+#  legacy_search: false
+#  # enable search API
+#  search: false
+
+# https://verdaccio.org/docs/logger
+#log settings
+#logs:
+#  - {type: stdout, format: pretty, level: trace}
+#  - {type: file, path: /verdaccio/storage/verdaccio.log, level: info}
+#  - {type: file, path: /verdaccio/storage/verdaccio-error.log, level: error}
