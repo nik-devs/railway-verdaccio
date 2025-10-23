@@ -10,6 +10,7 @@ services:
       - verdaccio-storage:/verdaccio/storage
       - verdaccio-plugins:/verdaccio/plugins
       - ./config.yaml:/verdaccio/conf/config.yaml:ro
+      - verdaccio-conf:/verdaccio/conf
     environment:
       - VERDACCIO_PORT=4873
     restart: unless-stopped
@@ -24,4 +25,6 @@ volumes:
   verdaccio-storage:
     driver: local
   verdaccio-plugins:
+    driver: local
+  verdaccio-conf:
     driver: local

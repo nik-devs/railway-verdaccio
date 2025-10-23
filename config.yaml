@@ -23,7 +23,7 @@ web:
 # Аутентификация
 auth:
   htpasswd:
-    file: /verdaccio/storage/htpasswd
+    file: /verdaccio/conf/htpasswd
     max_users: 1000
 
 # Uplinks - внешние реестры
