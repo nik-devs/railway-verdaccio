@@ -9,5 +9,5 @@ COPY config.yaml /verdaccio/conf/config.yaml
 # Открываем порт
 EXPOSE 4873
 
-# Запускаем Verdaccio
-CMD ["verdaccio"]
+# Запускаем Verdaccio с отладочной информацией
+CMD ["verdaccio", "--listen", "0.0.0.0:4873"]
