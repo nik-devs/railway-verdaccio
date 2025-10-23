@@ -6,6 +6,9 @@ storage: /verdaccio/storage
 # Путь к плагинам
 plugins: /verdaccio/plugins
 
+# Порт и хост
+listen: 0.0.0.0:4873
+
 # Веб-интерфейс
 web:
   title: Verdaccio Registry
@@ -21,10 +24,7 @@ web:
 auth:
   htpasswd:
     file: /verdaccio/storage/htpasswd
-    # Максимальное количество пользователей, по умолчанию 1000
     max_users: 1000
-    # По умолчанию true, если false, то пользователи не могут регистрироваться
-    # register: true
 
 # Uplinks - внешние реестры
 uplinks:
@@ -34,20 +34,15 @@ uplinks:
 # Пакеты и их политики доступа
 packages:
   '@*/*':
-    # scoped packages
     access: $authenticated
     publish: $authenticated
     unpublish: $authenticated
     proxy: npmjs
 
   '**':
-    # allow all users (including non-authenticated users) to read and
-    # all authenticated users to publish
     access: $all
     publish: $authenticated
     unpublish: $authenticated
-
-    # если пакет не найден локально, проксировать запрос к 'npmjs' uplink
     proxy: npmjs
 
 # Логирование

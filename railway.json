@@ -5,7 +5,7 @@
     "dockerfilePath": "Dockerfile"
   },
   "deploy": {
-    "startCommand": "verdaccio",
+    "startCommand": "verdaccio --config /verdaccio/conf/config.yaml --listen 0.0.0.0:4873",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10
   }

@@ -10,4 +10,4 @@ COPY config.yaml /verdaccio/conf/config.yaml
 EXPOSE 4873
 
 # Запускаем Verdaccio с отладочной информацией
-CMD ["verdaccio", "--listen", "0.0.0.0:4873"]
+CMD ["verdaccio", "--config", "/verdaccio/conf/config.yaml", "--listen", "0.0.0.0:4873"]
