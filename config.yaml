@@ -20,6 +20,11 @@ web:
   darkMode: true
   # favicon: http://somedomain/favicon.ico | /path/favicon.ico
 
+# Middleware для защиты веб-интерфейса
+middlewares:
+  web-auth:
+    enabled: true
+
 # Аутентификация
 auth:
   htpasswd:
@@ -34,7 +39,7 @@ uplinks:
 # Пакеты и их политики доступа
 packages:
   '@*/*':
-    access: $authenticated
+    access: $all
     publish: $authenticated
     unpublish: $authenticated
     proxy: npmjs
