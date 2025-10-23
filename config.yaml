@@ -1,42 +1,38 @@
 # Verdaccio Configuration
 
-# Путь к хранилищу пакетов
+# Path to package storage
 storage: /verdaccio/storage
 
-# Путь к плагинам
+# Path to plugins
 plugins: /verdaccio/plugins
 
-# Порт и хост
+# Port and host
 listen: 0.0.0.0:4873
 
-# Веб-интерфейс
+# Web interface
 web:
+  enable: false
   title: Verdaccio Registry
   # logo: http://somedomain/somelogo.png
   # primary_color: "#4b5e40"
   # gravatar: true | false
   # scope: "@scope"
   # sort_packages: asc | desc
-  darkMode: true
+  # darkMode: true
   # favicon: http://somedomain/favicon.ico | /path/favicon.ico
 
-# Middleware для защиты веб-интерфейса
-middlewares:
-  web-auth:
-    enabled: true
-
-# Аутентификация
+# Authentication
 auth:
   htpasswd:
     file: /verdaccio/storage/htpasswd
     max_users: 1000
 
-# Uplinks - внешние реестры
+# Uplinks - external registries
 uplinks:
   npmjs:
     url: https://registry.npmjs.org/
 
-# Пакеты и их политики доступа
+# Packages and their access policies
 packages:
   '@*/*':
     access: $all
@@ -50,10 +46,10 @@ packages:
     unpublish: $authenticated
     proxy: npmjs
 
-# Логирование
+# Logging
 logs: { type: stdout, format: pretty, level: http }
 
-# Экспериментальные функции
+# Experimental features
 #experiments:
 #  # support for npm token command
 #  token: false

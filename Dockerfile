@@ -1,19 +1,19 @@
 FROM verdaccio/verdaccio:latest
 
-# Переключаемся на root пользователя
+# Switch to root user
 USER root
 
-# Создаем директорию для данных
+# Create data directories
 RUN mkdir -p /verdaccio/storage /verdaccio/plugins
 
-# Копируем конфигурацию
+# Copy configuration
 COPY config.yaml /verdaccio/conf/config.yaml
 
-# Устанавливаем права на все директории
+# Set permissions on all directories
 RUN chown -R root:root /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 
-# Открываем порт
+# Expose port
 EXPOSE 4873
 
-# Запускаем Verdaccio от root пользователя
+# Run Verdaccio as root user
 CMD ["verdaccio", "--config", "/verdaccio/conf/config.yaml", "--listen", "0.0.0.0:4873"]

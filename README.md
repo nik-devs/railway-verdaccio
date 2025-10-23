@@ -1,221 +1,222 @@
-# Verdaccio Registry на Railway
+# Verdaccio Registry on Railway
 
-Этот репозиторий содержит конфигурацию для развертывания приватного npm реестра Verdaccio на платформе Railway с постоянным хранилищем данных.
+This repository contains configuration for deploying a private npm registry Verdaccio on Railway platform with persistent data storage.
 
-## 🚀 Особенности
+## 🚀 Features
 
-- **Приватный npm реестр** с поддержкой аутентификации ✅
-- **Постоянное хранилище** данных с помощью Railway volumes ✅
-- **Автоматическое развертывание** из GitHub ✅
-- **Проксирование** к официальному npm реестру ✅
-- **Веб-интерфейс** для управления пакетами ✅
+- **Private npm registry** with authentication support ✅
+- **Persistent storage** data using Railway volumes ✅
+- **Automatic deployment** from GitHub ✅
+- **Proxying** to official npm registry ✅
+- **Web interface** for package management ✅
 
-## 📁 Структура проекта
+## 📁 Project Structure
 
 ```
-├── Dockerfile          # Docker образ для Verdaccio
-├── docker-compose.yml  # Локальная разработка
-├── config.yaml         # Конфигурация Verdaccio
-├── railway.json        # Конфигурация Railway
-├── .gitignore         # Игнорируемые файлы
-└── README.md          # Документация
+├── Dockerfile          # Docker image for Verdaccio
+├── docker-compose.yml  # Local development
+├── config.yaml         # Verdaccio configuration
+├── railway.json        # Railway configuration
+├── .gitignore         # Ignored files
+└── README.md          # Documentation
 ```
 
-## 🛠 Локальная разработка
+## 🛠 Local Development
 
-### Требования
+### Requirements
 
 - Docker
 - Docker Compose
 
-### Запуск
+### Running
 
-1. Клонируйте репозиторий:
+1. Clone the repository:
 ```bash
 git clone <your-repo-url>
 cd verdaccio
 ```
 
-2. Запустите с помощью Docker Compose:
+2. Run with Docker Compose:
 ```bash
 docker-compose up -d
 ```
 
-3. Откройте браузер и перейдите по адресу: http://localhost:4873
+3. Open browser and go to: http://localhost:4873
 
-### Остановка
+### Stopping
 
 ```bash
 docker-compose down
 ```
 
-## 🚀 Развертывание на Railway
+## 🚀 Deployment on Railway
 
-### Подготовка
+### Preparation
 
-1. Создайте аккаунт на [Railway](https://railway.app)
-2. Подключите ваш GitHub аккаунт
-3. Убедитесь, что репозиторий находится в вашем GitHub
+1. Create an account on [Railway](https://railway.app)
+2. Connect your GitHub account
+3. Make sure the repository is in your GitHub
 
-### Развертывание
+### Deployment
 
-1. **Создайте новый проект на Railway:**
-   - Перейдите в [Railway Dashboard](https://railway.app/dashboard)
-   - Нажмите "New Project"
-   - Выберите "Deploy from GitHub repo"
-   - Выберите ваш репозиторий
+1. **Create a new project on Railway:**
+   - Go to [Railway Dashboard](https://railway.app/dashboard)
+   - Click "New Project"
+   - Select "Deploy from GitHub repo"
+   - Choose your repository
 
-2. **Настройте переменные окружения (опционально):**
-   - `VERDACCIO_PORT=4873` (по умолчанию)
+2. **Configure environment variables (optional):**
+   - `VERDACCIO_PORT=4873` (default)
 
-3. **Настройте Volume для данных:**
-   - В настройках проекта Railway
-   - Перейдите в раздел "Volumes"
-   - Создайте volume с путем `/verdaccio/storage`
-   - Это обеспечит сохранность данных при передеплое
+3. **Set up Volume for data:**
+   - In Railway project settings
+   - Go to "Volumes" section
+   - Create volume with path `/verdaccio/storage`
+   - This ensures data persistence during redeployment
 
-4. **Деплой:**
-   - Railway автоматически обнаружит `railway.json` и `Dockerfile`
-   - Начнется процесс сборки и развертывания
-   - После завершения вы получите URL вашего реестра
+4. **Deploy:**
+   - Railway will automatically detect `railway.json` and `Dockerfile`
+   - Build and deployment process will start
+   - After completion you'll get your registry URL
 
-### Настройка Volume на Railway
+### Setting up Volume on Railway
 
-Для обеспечения постоянного хранения данных:
+For persistent data storage:
 
-1. В панели управления Railway перейдите в ваш проект
-2. Откройте вкладку "Volumes"
-3. Создайте новый volume:
+1. In Railway dashboard go to your project
+2. Open "Volumes" tab
+3. Create a new volume:
    - **Name**: `verdaccio-storage`
    - **Mount Path**: `/verdaccio/storage`
-   - **Size**: Выберите подходящий размер (минимум 1GB)
+   - **Size**: Choose appropriate size (minimum 1GB)
 
-## ✅ Статус развертывания
+## ✅ Deployment Status
 
-**Приложение успешно развернуто и готово к использованию!**
+**Application successfully deployed and ready to use!**
 
-- ✅ Verdaccio запущен и работает
-- ✅ Аутентификация настроена (пользователи сохраняются в volume)
-- ✅ Проксирование к npmjs.org работает
-- ✅ Постоянное хранилище данных настроено
-- ✅ Темная тема включена
-- ✅ npm пакеты доступны всем, веб-интерфейс защищен
+- ✅ Verdaccio is running and working
+- ✅ Authentication configured (users saved in volume)
+- ✅ Proxying to npmjs.org works
+- ✅ Persistent data storage configured
+- ✅ Dark theme enabled
+- ✅ npm packages available to all (public registry)
+- ✅ Web interface disabled (API only)
 
-## 📦 Использование реестра
+## 📦 Using the Registry
 
-### Настройка npm для использования вашего реестра
+### Setting up npm to use your registry
 
 ```bash
-# Установить реестр по умолчанию
+# Set registry as default
 npm config set registry https://your-railway-app.railway.app
 
-# Или использовать для конкретного scope
+# Or use for specific scope
 npm config set @your-scope:registry https://your-railway-app.railway.app
 ```
 
-### Регистрация пользователя
+### User registration
 
 ```bash
 npm adduser --registry https://your-railway-app.railway.app
 ```
 
-### Публикация пакета
+### Publishing packages
 
 ```bash
 npm publish --registry https://your-railway-app.railway.app
 ```
 
-### Установка пакетов
+### Installing packages
 
 ```bash
 npm install package-name --registry https://your-railway-app.railway.app
 ```
 
-## ⚙️ Конфигурация
+## ⚙️ Configuration
 
-### Основные настройки в `config.yaml`:
+### Main settings in `config.yaml`:
 
-- **Аутентификация**: Требуется для публикации пакетов
-- **Проксирование**: Автоматическое проксирование к npmjs.org
-- **Scoped пакеты**: Поддержка @scope/package-name
-- **Логирование**: Настроено для Railway
+- **Authentication**: Required for package publishing
+- **Proxying**: Automatic proxying to npmjs.org
+- **Scoped packages**: Support for @scope/package-name
+- **Logging**: Configured for Railway
 
-### Настройка доступа к пакетам:
+### Package access settings:
 
-- `@*/*` - Scoped пакеты требуют аутентификации
-- `**` - Остальные пакеты доступны всем, но публикация требует аутентификации
+- `@*/*` - Scoped packages require authentication
+- `**` - Other packages available to all, but publishing requires authentication
 
-## 🔧 Мониторинг и логи
+## 🔧 Monitoring and Logs
 
-### Просмотр логов на Railway:
+### Viewing logs on Railway:
 
-1. Перейдите в ваш проект на Railway
-2. Откройте вкладку "Deployments"
-3. Выберите последний деплой
-4. Просмотрите логи в реальном времени
+1. Go to your project on Railway
+2. Open "Deployments" tab
+3. Select the latest deployment
+4. View logs in real-time
 
 ### Health Check:
 
-Railway автоматически проверяет доступность сервиса по пути `/`
+Railway automatically checks service availability at `/` path
 
-## 🛡 Безопасность
+## 🛡 Security
 
-### Рекомендации:
+### Recommendations:
 
-1. **Используйте HTTPS** (Railway предоставляет автоматически)
-2. **Настройте аутентификацию** для публикации пакетов
-3. **Регулярно обновляйте** Verdaccio до последней версии
-4. **Мониторьте логи** на предмет подозрительной активности
+1. **Use HTTPS** (Railway provides automatically)
+2. **Configure authentication** for package publishing
+3. **Regularly update** Verdaccio to latest version
+4. **Monitor logs** for suspicious activity
 
-## 🔄 Обновления
+## 🔄 Updates
 
-### Обновление Verdaccio:
+### Updating Verdaccio:
 
-1. Обновите версию в `Dockerfile`
-2. Зафиксируйте изменения в Git
-3. Railway автоматически пересоберет и развернет обновление
+1. Update version in `Dockerfile`
+2. Commit changes to Git
+3. Railway will automatically rebuild and deploy the update
 
-### Резервное копирование:
+### Backup:
 
-Данные хранятся в Railway Volume, но рекомендуется:
-1. Регулярно экспортировать важные пакеты
-2. Настроить автоматическое резервное копирование
+Data is stored in Railway Volume, but it's recommended to:
+1. Regularly export important packages
+2. Set up automatic backup
 
-## 🆘 Устранение неполадок
+## 🆘 Troubleshooting
 
-### Частые проблемы:
+### Common issues:
 
-1. **Сервис не запускается:**
-   - Проверьте логи в Railway Dashboard
-   - Убедитесь, что порт 4873 доступен
+1. **Service not starting:**
+   - Check logs in Railway Dashboard
+   - Make sure port 4873 is available
 
-2. **Данные не сохраняются:**
-   - Проверьте настройку Volume в Railway
-   - Убедитесь, что путь `/verdaccio/storage` правильно смонтирован
+2. **Data not persisting:**
+   - Check Volume configuration in Railway
+   - Make sure `/verdaccio/storage` path is properly mounted
 
-3. **Проблемы с аутентификацией:**
-   - Проверьте конфигурацию в `config.yaml`
-   - Убедитесь, что пользователь зарегистрирован
+3. **Authentication issues:**
+   - Check configuration in `config.yaml`
+   - Make sure user is registered
 
-### Логи для диагностики:
+### Logs for diagnostics:
 
 ```bash
-# Локально
+# Locally
 docker-compose logs verdaccio
 
-# На Railway - через Dashboard
+# On Railway - through Dashboard
 ```
 
-## 📚 Дополнительные ресурсы
+## 📚 Additional Resources
 
 - [Verdaccio Documentation](https://verdaccio.org/docs/en/installation)
 - [Railway Documentation](https://docs.railway.app)
 - [npm Registry Documentation](https://docs.npmjs.com/)
 
-## 📄 Лицензия
+## 📄 License
 
 MIT License
 
 ---
 
-**Примечание**: Этот репозиторий настроен для развертывания на Railway. Для других платформ может потребоваться дополнительная конфигурация.
+**Note**: This repository is configured for deployment on Railway. Additional configuration may be required for other platforms.
