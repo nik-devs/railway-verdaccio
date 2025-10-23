@@ -17,7 +17,7 @@ web:
   # gravatar: true | false
   # scope: "@scope"
   # sort_packages: asc | desc
-  # darkMode: true | false
+  darkMode: true
   # favicon: http://somedomain/favicon.ico | /path/favicon.ico
 
 # Аутентификация
